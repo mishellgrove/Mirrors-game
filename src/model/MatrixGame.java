@@ -100,7 +100,7 @@ public class MatrixGame {
 	public void setDisparos(int disparos) {
 		this.disparos = disparos;
 	}
-	
+
 	public void createMatrix() {
 		first = new Cell(0,'A');
 		createRow(0, 0, first);
@@ -147,30 +147,71 @@ public class MatrixGame {
 		}
 	}
 
-		public Cell generatePosition(int r, int c) {     // r = 3; c = 5;
-			double w = Math.random()*r+1;
-			double q = Math.random()*c;
-			int rows = (int) w;
-			int b = (int) q;
-			char cols = (char) ('A' + b);
-			return recorrerMatrix(rows,cols,getFirst());
+	public Cell generatePosition(int r, int c) {     // r = 3; c = 5;
+		double w = Math.random()*r+1;
+		double q = Math.random()*c;
+		int rows = (int) w;
+		int b = (int) q;
+		char cols = (char) ('A' + b);
+		return recorrerMatrix(rows,cols,getFirst());
+	}
+
+	public void initializeMirror(int mirror, int a , int b) {
+		setMirrorCon(mirror);
+		setMirror(mirror);
+		setContador(mirror);
+	}
+
+	public void calculateScore() {
+		int resta = mirror - mirrorCon;
+
+		int a = resta*100;
+		int b = getDisparos()*4;
+
+		int z = a-b;
+
+		player.setScore(z);
+	}
+
+	public String generateinc() {
+		String msg = "";
+		double a = Math.random()*10 ;
+		int b = (int) a; 
+		if(b % 2 == 0) {
+			msg = "/";
+		}else {
+			msg = "\\";
 		}
 
-		public void initializeMirror(int mirror, int a , int b) {
-			setMirrorCon(mirror);
-			setMirror(mirror);
-			setContador(mirror);
-		}
-		
-		public void calculateScore() {
-			int resta = mirror - mirrorCon;
-			
-			int a = resta*100;
-			int b = getDisparos()*4;
-			
-			int z = a-b;
-			
-			player.setScore(z);
+		return msg;
+	}
+
+	public void generateMirror(int a, int b, int mirror) { // a = 3; b = 3; mirror = 4; mirror > 9
+		String msg = "";
+		//System.out.println(mirror);
+		if(contador <= a * b) {     
+			if(contador <= 0) {
+			}else {
+				Cell temp = generatePosition(a,b);  //1A ; 1A
+
+				//System.out.println(temp);
+				//System.out.println(temp.getMirror());
+
+				if(temp.getMirror() == "") {    //1A = ""; 1A = "/" O 1A = "\\";  
+					//System.out.println("true");
+					temp.setMirror(generateinc());
+					//System.out.println(temp.getMirror());
+				}else {
+					//System.out.println("Hay una position que ya tiene");
+					generateMirror(a,b,contador);
+				}
+				//System.out.println("Siguiente espejo");
+				contador = contador-1;
+				generateMirror(a,b, contador);
+			}
+		}else {
+			msg = "No se puede generar los espejos porque la cantidad supera las dimensiones de la matriz";
 		}
 
 	}
+}

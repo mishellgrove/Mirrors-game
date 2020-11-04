@@ -121,7 +121,5 @@ public class Cell {
 	public void setUp(Cell up) {
 		this.up = up;
 	}
-	
-	
 
 }
