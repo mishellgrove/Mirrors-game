@@ -172,6 +172,10 @@ public class MatrixGame {
 
 		player.setScore(z);
 	}
+	
+	public Player mandarDatos() {
+		return player;
+	}
 
 	public String generateinc() {
 		String msg = "";
@@ -213,5 +217,19 @@ public class MatrixGame {
 			msg = "No se puede generar los espejos porque la cantidad supera las dimensiones de la matriz";
 		}
 
+	}
+	
+	public void mostrarEspejo(Cell temp, String incli) {
+		if(temp.haveMirror() == true) {
+			if(temp.getMirror().equals(incli)) {
+				temp.setC(true);
+				setMirrorCon(mirrorCon-1);
+			}else {
+				temp.setB(true);
+			}
+		}else {
+			temp.setB(true);
+		}
+			
 	}
 }
