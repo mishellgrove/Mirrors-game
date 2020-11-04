@@ -161,7 +161,16 @@ public class MatrixGame {
 			setMirror(mirror);
 			setContador(mirror);
 		}
-
-
+		
+		public void calculateScore() {
+			int resta = mirror - mirrorCon;
+			
+			int a = resta*100;
+			int b = getDisparos()*4;
+			
+			int z = a-b;
+			
+			player.setScore(z);
+		}
 
 	}
