@@ -127,7 +127,7 @@ public class MatrixGame {
 
 	}
 
-	public Cell recorrerMatrix(int i, char c, Cell temp) {    /// 3B
+	public Cell traverseMatrix(int i, char c, Cell temp) {    /// 3B
 		try {
 			if(i == temp.getRow()) { /// 1A
 
@@ -135,11 +135,11 @@ public class MatrixGame {
 					return temp;
 				}else {
 					temp = temp.getNext();
-					return recorrerMatrix(i, c, temp);
+					return traverseMatrix(i, c, temp);
 				}
 			}else {
 				temp = temp.getDown();
-				return recorrerMatrix(i,c,temp);
+				return traverseMatrix(i,c,temp);
 			}
 
 		}catch(NullPointerException a) {
@@ -153,7 +153,7 @@ public class MatrixGame {
 		int rows = (int) w;
 		int b = (int) q;
 		char cols = (char) ('A' + b);
-		return recorrerMatrix(rows,cols,getFirst());
+		return traverseMatrix(rows,cols,getFirst());
 	}
 
 	public void initializeMirror(int mirror, int a , int b) {
@@ -218,8 +218,16 @@ public class MatrixGame {
 		}
 
 	}
+	
+	/*
+	* The method is to show a mirror
+	* @pre: Cell! = null
+	* @param: Cell temp, String incli
+	* @return: void
+	* @post: show a mirror to user
+	*/
 
-	public void mostrarEspejo(Cell temp, String incli) {
+	public void showMirror(Cell temp, String incli) {
 		if(temp.haveMirror() == true) {
 			if(temp.getMirror().equals(incli)) {
 				temp.setC(true);
@@ -232,21 +240,29 @@ public class MatrixGame {
 		}
 
 	}
+	
+	/*
+	* The method is to shoot lightning
+	* @pre: first! = null;
+	* @param: Int row, char col, string orientation
+	* @return: void
+	* @post: shot lightning
+	*/
 
 	public void lanzarRayo(int row, char col, String orientation) {
-		Cell temp = recorrerMatrix(row, col,getFirst());
+		Cell temp = traverseMatrix(row, col,getFirst());
 		// Orientation null
 		if(contadora == 0) { // Para prevenir que estemos en el inicio sea borde
 			if(temp.getRow() == 1) { // Borde Superior
 				if(temp.haveMirror() == true) {
 					if(temp.getMirror().equals("/")) {
-						if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
+						if(traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
 							contadora = contadora + 1;
 							lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
 							temp.setStart(true);
 						}
 					}else {
-						if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
+						if(traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
 							contadora = contadora + 1;
 							lanzarRayo(temp.getRow(), (char)(temp.getCol()+1), "HD");
 							temp.setStart(true);
@@ -255,7 +271,7 @@ public class MatrixGame {
 				}else {
 					//Borde superior
 					contadora = contadora + 1;
-					if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+					if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
 						lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
 						temp.setStart(true);
 					}
@@ -264,13 +280,13 @@ public class MatrixGame {
 			}else if (temp.getRow() == getRows()){   // borde inferior 
 				if(temp.haveMirror() == true) {
 					if(temp.getMirror().equals("/")) {
-						if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
+						if(traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
 							contadora = contadora + 1;
 							lanzarRayo(temp.getRow(), (char)(temp.getCol()+1), "HD");
 							temp.setStart(true);
 						}
 					}else {
-						if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
+						if(traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
 							contadora = contadora + 1;
 							lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
 							temp.setStart(true);
@@ -279,7 +295,7 @@ public class MatrixGame {
 				}else {
 					//Borde inferior
 					contadora = contadora + 1;
-					if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+					if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
 						lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
 						temp.setStart(true);
 					}
@@ -287,13 +303,13 @@ public class MatrixGame {
 			}else if (temp.getCol() == 'A') { //Borde izquierdo
 				if(temp.haveMirror() == true) {
 					if(temp.getMirror().equals("/")) {
-						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+						if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
 							contadora = contadora + 1;
 							lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
 							temp.setStart(true);
 						}
 					}else {
-						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+						if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
 							contadora = contadora + 1;
 							lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
 							temp.setStart(true);
@@ -302,7 +318,7 @@ public class MatrixGame {
 				}else {
 					//Borde izquierdo
 					contadora = contadora + 1;
-					if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
+					if(traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
 						lanzarRayo(temp.getRow(), (char) (temp.getCol()+1), "HD");
 						temp.setStart(true);
 					}
@@ -311,13 +327,13 @@ public class MatrixGame {
 			}else if (temp.getCol() == 'A' + (getCols()-1)) { //Borde derecho
 				if(temp.haveMirror() == true) {
 					if(temp.getMirror().equals("/")) {
-						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+						if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
 							contadora = contadora + 1;
 							lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
 							temp.setStart(true);
 						}
 					}else {
-						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+						if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
 							contadora = contadora + 1;
 							lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
 							temp.setStart(true);
@@ -326,7 +342,7 @@ public class MatrixGame {
 				}else {
 					//Borde derecho
 					contadora = contadora + 1;
-					if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
+					if(traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
 						lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
 						temp.setStart(true);
 					}
@@ -336,8 +352,8 @@ public class MatrixGame {
 			if(orientation == "HD") {
 				if(temp.haveMirror() == true) {
 					if(temp.getMirror().equals("/")) {
-						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
-							Cell temp1 = recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst());
+						if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+							Cell temp1 = traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst());
 							lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
 						}else {
 							temp.setStop(true);
@@ -345,8 +361,8 @@ public class MatrixGame {
 
 						}
 					}else {
-						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
-							Cell temp1 = recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst());
+						if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+							Cell temp1 = traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst());
 							lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
 						}else {
 
@@ -357,8 +373,8 @@ public class MatrixGame {
 						}
 					}
 				}else {
-					if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
-						Cell temp1 = recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst());
+					if(traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
+						Cell temp1 = traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst());
 						lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
 					}else {
 
@@ -371,8 +387,8 @@ public class MatrixGame {
 			}else if(orientation == "HI") {
 				if(temp.haveMirror() == true) {
 					if(temp.getMirror().equals("/")) {
-						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
-							Cell temp1 = recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst());
+						if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+							Cell temp1 = traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst());
 							lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
 						}else {
 
@@ -382,8 +398,8 @@ public class MatrixGame {
 
 						}
 					}else {
-						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
-							Cell temp1 = recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst());
+						if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+							Cell temp1 = traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst());
 							lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
 						}else {
 							temp.setStop(true);
@@ -393,8 +409,8 @@ public class MatrixGame {
 						}
 					}
 				}else {
-					if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
-						Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
+					if(traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
+						Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
 						lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
 					}else {
 
@@ -407,8 +423,8 @@ public class MatrixGame {
 			}else if(orientation == "VU") {
 				if(temp.haveMirror() == true) {
 					if(temp.getMirror().equals("/")) {
-						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
-							Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst());
+						if(traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
+							Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst());
 							lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
 						}else {
 
@@ -418,8 +434,8 @@ public class MatrixGame {
 
 						}
 					}else {
-						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
-							Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
+						if(traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
+							Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
 							lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
 						}else {
 
@@ -430,8 +446,8 @@ public class MatrixGame {
 						}
 					}
 				}else {
-					if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
-						Cell temp1 = recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst());
+					if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+						Cell temp1 = traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst());
 						lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
 					}else {
 						temp.setStop(true);
@@ -443,8 +459,8 @@ public class MatrixGame {
 			}else if(orientation == "VD") {
 				if(temp.haveMirror() == true) {
 					if(temp.getMirror().equals("/")) {
-						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
-							Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
+						if(traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
+							Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
 							lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
 						}else {
 							temp.setStop(true);
@@ -453,8 +469,8 @@ public class MatrixGame {
 
 						}
 					}else {
-						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
-							Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst());
+						if(traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
+							Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst());
 							lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
 						}else {
 							setContadora(0);
@@ -464,8 +480,8 @@ public class MatrixGame {
 						}
 					}
 				}else {
-					if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
-						Cell temp1 = recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst());
+					if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+						Cell temp1 = traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst());
 						lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
 					}else {
 						setContadora(0);
@@ -479,18 +495,18 @@ public class MatrixGame {
 	}
 
 	public String identificarEsquina(Cell temp) {
-		if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) { //Get up == null, get prev == null
+		if((traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) { //Get up == null, get prev == null
 			return "SI";
 			//Esquina superior izquierda
-		}else if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)){
+		}else if((traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)){
 			return "SD";
 			//Esquina superior derecha
-		}else if((recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) == null) && (recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) ==null)) {
+		}else if((traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) == null) && (traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) ==null)) {
 			//System.out.println((recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst())));
 			//System.out.println((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst())));
 			return "II";
 			//Esquina inferior izquierda
-		}else if((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)) {
+		}else if((traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)) {
 			//System.out.println((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst())));
 			//System.out.println((recorrerMatrix(temp.getRow()+1, (char) (temp.getCol()+1), getFirst())));
 			return "ID";
@@ -503,16 +519,16 @@ public class MatrixGame {
 	}
 
 	public boolean identificarEsquina1(Cell temp) {
-		if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) { //Get up == null, get prev == null
+		if((traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) { //Get up == null, get prev == null
 			return true;
 			//Esquina superior izquierda
-		}else if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)){
+		}else if((traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)){
 			return true;
 			//Esquina superior derecha
-		}else if((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) {
+		}else if((traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) {
 			return true;
 			//Esquina inferior izquierda
-		}else if((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)) {
+		}else if((traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)) {
 			return true;
 			//Esquina inferior derecha4
 
@@ -530,14 +546,14 @@ public class MatrixGame {
 			int b = Integer.parseInt(a);
 			char c = comms.charAt(2);
 			String incli = comms.charAt(3)+""; 
-			if(recorrerMatrix(b,c,getFirst()) != null ) {
-				Cell temp1 = recorrerMatrix(b,c,getFirst());
+			if(traverseMatrix(b,c,getFirst()) != null ) {
+				Cell temp1 = traverseMatrix(b,c,getFirst());
 				if(incli.equals("R")) {
 					//Llame metodo de validar espejo
-					mostrarEspejo(temp1,"/");
+					showMirror(temp1,"/");
 
 				}else if(incli.equals("L")) {
-					mostrarEspejo(temp1, "\\");
+					showMirror(temp1, "\\");
 				}else {
 					msg = "No se reconoce si es R o L en el comando";
 				}
@@ -551,9 +567,9 @@ public class MatrixGame {
 			int row = Integer.parseInt(ab);
 			String orien = comms.charAt(2) + "";
 
-			if(recorrerMatrix(row,col, getFirst()) != null ) {
+			if(traverseMatrix(row,col, getFirst()) != null ) {
 				if((comms.charAt(comms.length()-1) == 'H')) {
-					Cell temp = recorrerMatrix(row,col,getFirst());
+					Cell temp = traverseMatrix(row,col,getFirst());
 					if(identificarEsquina(temp).equals("SI")) {
 						temp.setStart(true);
 						contadora = contadora + 1;
@@ -576,7 +592,7 @@ public class MatrixGame {
 						disparos = disparos +1;
 					}
 				}else if((comms.charAt(comms.length()-1) == 'V')){
-					Cell temp = recorrerMatrix(row,col,getFirst());
+					Cell temp = traverseMatrix(row,col,getFirst());
 					if(identificarEsquina(temp).equals("SI")) {
 						temp.setStart(true);
 						contadora = contadora + 1;
@@ -608,11 +624,11 @@ public class MatrixGame {
 			int b = Integer.parseInt(a);
 			char c = comms.charAt(1);
 
-			if(recorrerMatrix(b,c, getFirst()) != null ) {
+			if(traverseMatrix(b,c, getFirst()) != null ) {
 				//Llame método de lanzar rayo
 				toString();
 				disparos = disparos +1;
-				Cell temp = recorrerMatrix(b,c,getFirst());
+				Cell temp = traverseMatrix(b,c,getFirst());
 				if(identificarEsquina1(temp) == true){
 					toString();
 				}else {
