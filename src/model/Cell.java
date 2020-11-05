@@ -1,7 +1,9 @@
 package model;
 
 public class Cell {
-
+	
+	//Attributes
+	
 	private int row;
 	private char col;
 	private String position;
@@ -10,12 +12,16 @@ public class Cell {
 	private boolean c;
 	private boolean start;
 	private boolean stop;
+	
+	//Relations
 
 	private Cell prev;
 	private Cell next;
 	private Cell down;
 	private Cell up;
-
+	
+	//Method constructor
+	
 	public Cell(int row, char col) {
 		this.row = row+1;
 		this.col = col;
@@ -121,5 +127,26 @@ public class Cell {
 	public void setUp(Cell up) {
 		this.up = up;
 	}
+	
 
+	
+	public String toString(boolean a) {
+		return "[(" + position + "])";
+	}	
+	
+	public boolean isStart() {
+		return start;
+	}
+
+	public void setStart(boolean start) {
+		this.start = start;
+	}
+
+	public boolean isStop() {
+		return stop;
+	}
+	
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
 }
