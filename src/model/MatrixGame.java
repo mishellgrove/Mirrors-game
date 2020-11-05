@@ -478,4 +478,48 @@ public class MatrixGame {
 		} //contadora 
 
 	}
+	
+	public String identificarEsquina(Cell temp) {
+		if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) { //Get up == null, get prev == null
+			return "SI";
+			//Esquina superior izquierda
+		}else if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)){
+			return "SD";
+			//Esquina superior derecha
+		}else if((recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) == null) && (recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) ==null)) {
+			//System.out.println((recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst())));
+			//System.out.println((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst())));
+			return "II";
+			//Esquina inferior izquierda
+		}else if((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)) {
+			//System.out.println((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst())));
+			//System.out.println((recorrerMatrix(temp.getRow()+1, (char) (temp.getCol()+1), getFirst())));
+			return "ID";
+			//Esquina inferior derecha4
+			
+		}else {
+			return "No se identifica la esquina";
+		}
+	
+	}
+	
+	public boolean identificarEsquina1(Cell temp) {
+		if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) { //Get up == null, get prev == null
+			return true;
+			//Esquina superior izquierda
+		}else if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)){
+			return true;
+			//Esquina superior derecha
+		}else if((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) {
+			return true;
+			//Esquina inferior izquierda
+		}else if((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)) {
+			return true;
+			//Esquina inferior derecha4
+			
+		}else {
+			return false;
+		}
+	
+	}
 }
