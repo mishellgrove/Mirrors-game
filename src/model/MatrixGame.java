@@ -471,14 +471,13 @@ public class MatrixGame {
 						setContadora(0);
 						temp.setStop(true);
 
-
 					}	
 				}
 			}
 		} //contadora 
 
 	}
-	
+
 	public String identificarEsquina(Cell temp) {
 		if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) { //Get up == null, get prev == null
 			return "SI";
@@ -496,13 +495,13 @@ public class MatrixGame {
 			//System.out.println((recorrerMatrix(temp.getRow()+1, (char) (temp.getCol()+1), getFirst())));
 			return "ID";
 			//Esquina inferior derecha4
-			
+
 		}else {
 			return "No se identifica la esquina";
 		}
-	
+
 	}
-	
+
 	public boolean identificarEsquina1(Cell temp) {
 		if((recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) ==null)) { //Get up == null, get prev == null
 			return true;
@@ -516,10 +515,114 @@ public class MatrixGame {
 		}else if((recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) == null) && (recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) ==null)) {
 			return true;
 			//Esquina inferior derecha4
-			
+
 		}else {
 			return false;
 		}
-	
+
 	}
+
+	public String identificarComms(String comms) {
+		String msg = "";
+		if((comms.length() == 4) && (comms.charAt(0) == 'L')) {
+
+			String a = comms.charAt(1) + "";
+			int b = Integer.parseInt(a);
+			char c = comms.charAt(2);
+			String incli = comms.charAt(3)+""; 
+			if(recorrerMatrix(b,c,getFirst()) != null ) {
+				Cell temp1 = recorrerMatrix(b,c,getFirst());
+				if(incli.equals("R")) {
+					//Llame metodo de validar espejo
+					mostrarEspejo(temp1,"/");
+
+				}else if(incli.equals("L")) {
+					mostrarEspejo(temp1, "\\");
+				}else {
+					msg = "No se reconoce si es R o L en el comando";
+				}
+			}else {
+				msg = "La position de la celda no existe";
+			}
+		}else if(comms.length() == 3){ //1AH
+			char col = comms.charAt(1);
+			String ab = comms.charAt(0)+"";
+
+			int row = Integer.parseInt(ab);
+			String orien = comms.charAt(2) + "";
+
+			if(recorrerMatrix(row,col, getFirst()) != null ) {
+				if((comms.charAt(comms.length()-1) == 'H')) {
+					Cell temp = recorrerMatrix(row,col,getFirst());
+					if(identificarEsquina(temp).equals("SI")) {
+						temp.setStart(true);
+						contadora = contadora + 1;
+						lanzarRayo(row,col, "HD");
+						disparos = disparos +1;
+					}else if(identificarEsquina(temp).equals("SD")){
+						temp.setStart(true);
+						contadora = contadora + 1;
+						lanzarRayo(row,col, "HI");
+						disparos = disparos +1;
+					}else if(identificarEsquina(temp).equals("II")) {
+						temp.setStart(true);
+						contadora = contadora + 1;
+						lanzarRayo(row,col, "HD");
+						disparos = disparos +1;
+					}else if(identificarEsquina(temp).equals("ID")) {
+						temp.setStart(true);
+						contadora = contadora + 1;
+						lanzarRayo(row,col, "HI");
+						disparos = disparos +1;
+					}
+				}else if((comms.charAt(comms.length()-1) == 'V')){
+					Cell temp = recorrerMatrix(row,col,getFirst());
+					if(identificarEsquina(temp).equals("SI")) {
+						temp.setStart(true);
+						contadora = contadora + 1;
+						lanzarRayo(row,col, "VD");
+						disparos = disparos +1;
+					}else if(identificarEsquina(temp).equals("SD")){
+						temp.setStart(true);
+						contadora = contadora + 1;
+						lanzarRayo(row,col, "VD");
+						disparos = disparos +1;
+					}else if(identificarEsquina(temp).equals("II")) {
+						temp.setStart(true);
+						contadora = contadora + 1;
+						lanzarRayo(row,col, "VU");
+						disparos = disparos +1;
+					}else if(identificarEsquina(temp).equals("ID"))
+						temp.setStart(true);
+					contadora = contadora + 1;
+					lanzarRayo(row,col, "VU");
+					disparos = disparos +1;
+				}else {
+					msg = "No se reconoce si es H o V en el comando";
+				}
+			}else {
+				msg = "La position de la celda no existe";
+			}
+		}else {
+			String a = comms.charAt(0) + "";
+			int b = Integer.parseInt(a);
+			char c = comms.charAt(1);
+
+			if(recorrerMatrix(b,c, getFirst()) != null ) {
+				//Llame método de lanzar rayo
+				toString();
+				disparos = disparos +1;
+				Cell temp = recorrerMatrix(b,c,getFirst());
+				if(identificarEsquina1(temp) == true){
+					toString();
+				}else {
+					lanzarRayo(b,c, "");
+				}
+
+			}
+
+		}
+		return msg;
+	}
+
 }
