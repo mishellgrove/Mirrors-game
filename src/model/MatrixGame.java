@@ -172,7 +172,7 @@ public class MatrixGame {
 
 		player.setScore(z);
 	}
-	
+
 	public Player mandarDatos() {
 		return player;
 	}
@@ -218,7 +218,7 @@ public class MatrixGame {
 		}
 
 	}
-	
+
 	public void mostrarEspejo(Cell temp, String incli) {
 		if(temp.haveMirror() == true) {
 			if(temp.getMirror().equals(incli)) {
@@ -230,111 +230,252 @@ public class MatrixGame {
 		}else {
 			temp.setB(true);
 		}
-			
+
 	}
-	
+
 	public void lanzarRayo(int row, char col, String orientation) {
 		Cell temp = recorrerMatrix(row, col,getFirst());
-				// Orientation null
-			if(contadora == 0) { // Para prevenir que estemos en el inicio sea borde
-				if(temp.getRow() == 1) { // Borde Superior
-					if(temp.haveMirror() == true) {
-						if(temp.getMirror().equals("/")) {
-							if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
-								contadora = contadora + 1;
-								lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
-								temp.setStart(true);
-							}
-						}else {
-							if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
-								contadora = contadora + 1;
-								lanzarRayo(temp.getRow(), (char)(temp.getCol()+1), "HD");
-								temp.setStart(true);
-							}
-						}
-					}else {
-						//Borde superior
-						contadora = contadora + 1;
-						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
-							lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
-							temp.setStart(true);
-						}
-					}
-					
-				}else if (temp.getRow() == getRows()){   // borde inferior 
-					if(temp.haveMirror() == true) {
-						if(temp.getMirror().equals("/")) {
-							if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
-								contadora = contadora + 1;
-								lanzarRayo(temp.getRow(), (char)(temp.getCol()+1), "HD");
-								temp.setStart(true);
-							}
-						}else {
-							if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
-								contadora = contadora + 1;
-								lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
-								temp.setStart(true);
-							}
-						}
-					}else {
-						//Borde inferior
-						contadora = contadora + 1;
-						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
-							lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
-							temp.setStart(true);
-						}
-					}
-				}else if (temp.getCol() == 'A') { //Borde izquierdo
-					if(temp.haveMirror() == true) {
-						if(temp.getMirror().equals("/")) {
-							if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
-								contadora = contadora + 1;
-								lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
-								temp.setStart(true);
-							}
-						}else {
-							if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
-								contadora = contadora + 1;
-								lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
-								temp.setStart(true);
-							}
-						}
-					}else {
-						//Borde izquierdo
-						contadora = contadora + 1;
-						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
-							lanzarRayo(temp.getRow(), (char) (temp.getCol()+1), "HD");
-							temp.setStart(true);
-						}
-					}
-					
-				}else if (temp.getCol() == 'A' + (getCols()-1)) { //Borde derecho
-					if(temp.haveMirror() == true) {
-						if(temp.getMirror().equals("/")) {
-							if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
-								contadora = contadora + 1;
-								lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
-								temp.setStart(true);
-							}
-						}else {
-							if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
-								contadora = contadora + 1;
-								lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
-								temp.setStart(true);
-							}
-						}
-					}else {
-						//Borde derecho
-						contadora = contadora + 1;
+		// Orientation null
+		if(contadora == 0) { // Para prevenir que estemos en el inicio sea borde
+			if(temp.getRow() == 1) { // Borde Superior
+				if(temp.haveMirror() == true) {
+					if(temp.getMirror().equals("/")) {
 						if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
+							contadora = contadora + 1;
+							lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
+							temp.setStart(true);
+						}
+					}else {
+						if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
+							contadora = contadora + 1;
+							lanzarRayo(temp.getRow(), (char)(temp.getCol()+1), "HD");
+							temp.setStart(true);
+						}
+					}
+				}else {
+					//Borde superior
+					contadora = contadora + 1;
+					if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+						lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
+						temp.setStart(true);
+					}
+				}
+
+			}else if (temp.getRow() == getRows()){   // borde inferior 
+				if(temp.haveMirror() == true) {
+					if(temp.getMirror().equals("/")) {
+						if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
+							contadora = contadora + 1;
+							lanzarRayo(temp.getRow(), (char)(temp.getCol()+1), "HD");
+							temp.setStart(true);
+						}
+					}else {
+						if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
+							contadora = contadora + 1;
 							lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
 							temp.setStart(true);
 						}
 					}
+				}else {
+					//Borde inferior
+					contadora = contadora + 1;
+					if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+						lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
+						temp.setStart(true);
+					}
 				}
-			}else {// cuando la contadora == 1
-				
-			} //contadora debería aumentar
-					
+			}else if (temp.getCol() == 'A') { //Borde izquierdo
+				if(temp.haveMirror() == true) {
+					if(temp.getMirror().equals("/")) {
+						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+							contadora = contadora + 1;
+							lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
+							temp.setStart(true);
+						}
+					}else {
+						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+							contadora = contadora + 1;
+							lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
+							temp.setStart(true);
+						}
+					}
+				}else {
+					//Borde izquierdo
+					contadora = contadora + 1;
+					if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
+						lanzarRayo(temp.getRow(), (char) (temp.getCol()+1), "HD");
+						temp.setStart(true);
+					}
+				}
+
+			}else if (temp.getCol() == 'A' + (getCols()-1)) { //Borde derecho
+				if(temp.haveMirror() == true) {
+					if(temp.getMirror().equals("/")) {
+						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+							contadora = contadora + 1;
+							lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
+							temp.setStart(true);
+						}
+					}else {
+						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+							contadora = contadora + 1;
+							lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
+							temp.setStart(true);
+						}
+					}
+				}else {
+					//Borde derecho
+					contadora = contadora + 1;
+					if(recorrerMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
+						lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
+						temp.setStart(true);
+					}
+				}
+			}
+		}else { //contadora == 1
+			if(orientation == "HD") {
+				if(temp.haveMirror() == true) {
+					if(temp.getMirror().equals("/")) {
+						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+							Cell temp1 = recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst());
+							lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
+						}else {
+							temp.setStop(true);
+							setContadora(0);
+
+						}
+					}else {
+						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+							Cell temp1 = recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst());
+							lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
+						}else {
+
+							temp.setStop(true);
+							setContadora(0);
+
+
+						}
+					}
+				}else {
+					if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
+						Cell temp1 = recorrerMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst());
+						lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
+					}else {
+
+						temp.setStop(true);
+						setContadora(0);
+
+
+					}	
+				}
+			}else if(orientation == "HI") {
+				if(temp.haveMirror() == true) {
+					if(temp.getMirror().equals("/")) {
+						if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+							Cell temp1 = recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst());
+							lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
+						}else {
+
+							temp.setStop(true);
+							setContadora(0);
+
+
+						}
+					}else {
+						if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+							Cell temp1 = recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst());
+							lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
+						}else {
+							temp.setStop(true);
+							setContadora(0);
+
+
+						}
+					}
+				}else {
+					if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
+						Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
+						lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
+					}else {
+
+						temp.setStop(true);
+						setContadora(0);
+
+
+					}	
+				}
+			}else if(orientation == "VU") {
+				if(temp.haveMirror() == true) {
+					if(temp.getMirror().equals("/")) {
+						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
+							Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst());
+							lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
+						}else {
+
+							temp.setStop(true);
+							setContadora(0);
+
+
+						}
+					}else {
+						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
+							Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
+							lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
+						}else {
+
+							temp.setStop(true);
+							setContadora(0);
+
+
+						}
+					}
+				}else {
+					if(recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
+						Cell temp1 = recorrerMatrix(temp.getRow()-1, temp.getCol(), getFirst());
+						lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
+					}else {
+						temp.setStop(true);
+						setContadora(0);
+
+
+					}	
+				}
+			}else if(orientation == "VD") {
+				if(temp.haveMirror() == true) {
+					if(temp.getMirror().equals("/")) {
+						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
+							Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
+							lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
+						}else {
+							temp.setStop(true);
+							setContadora(0);
+
+
+						}
+					}else {
+						if(recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
+							Cell temp1 = recorrerMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst());
+							lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
+						}else {
+							setContadora(0);
+							temp.setStop(true);
+
+
+						}
+					}
+				}else {
+					if(recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
+						Cell temp1 = recorrerMatrix(temp.getRow()+1, temp.getCol(), getFirst());
+						lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
+					}else {
+						setContadora(0);
+						temp.setStop(true);
+
+
+					}	
+				}
+			}
+		} //contadora 
+
 	}
 }
