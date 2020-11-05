@@ -43,8 +43,25 @@ public class Control {
 	public void addPlayer(Player temp) {
 		addPlayer(temp, getRoot());
 	}
-	
+
 	public void addPlayer(Player temp, Player root) {
+		if(getRoot() == null) {
+			setRoot(temp);
+		}else {
+			if(temp.getScore() <= root.getScore()) {
+				if(root.getIzq() == null) {
+					root.setIzq(temp);
+				}else {
+					addPlayer(temp, root.getIzq());
+				}
+			}else {
+				if(root.getDer()==null) {
+					root.setDer(temp);
+				}else {
+					addPlayer(temp, root.getDer());
+				}
+			}
+		}
 	}
 	
 	public void recibirdatos() {
