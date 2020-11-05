@@ -128,12 +128,26 @@ public class Cell {
 		this.up = up;
 	}
 	
-
+	public String toString(){
+		if(b == true) {
+			return "[(" + "X" + "])";
+		}else if(c == true) {
+			return "[(" +  mirror  + "])";
+		}else if(start == true) {
+			return "[(" +  "S"  + "])";
+		}else if(stop == true) {
+			return "[(" +  "E"  + "])";
+		}
+		else {
+			return "[(" + position + "])";
+		}
+		
+	}
 	
 	public String toString(boolean a) {
 		return "[(" + position + "])";
 	}	
-	
+
 	public boolean isStart() {
 		return start;
 	}

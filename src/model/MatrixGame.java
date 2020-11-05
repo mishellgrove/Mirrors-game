@@ -214,7 +214,7 @@ public class MatrixGame {
 				generateMirror(a,b, contador);
 			}
 		}else {
-			msg = "No se puede generar los espejos porque la cantidad supera las dimensiones de la matriz";
+			msg = "The mirrors cannot be generated because the quantity exceeds the dimensions of the matrix";
 		}
 
 	}
@@ -638,6 +638,61 @@ public class MatrixGame {
 			}
 
 		}
+		return msg;
+	}
+	
+	public String colsString(Cell current) {
+		String msg = "";
+		if(current != null) {
+			msg = current.toString();
+			current.setStart(false);
+			current.setStop(false);
+			current.setStop(false);
+			msg += colsString(current.getNext());
+		}
+		return msg;
+	}
+	
+	public String colsString2(Cell current) {
+		String msg = "";
+		if(current != null) {
+			msg = current.toString(true);
+			msg += colsString2(current.getNext());
+		}
+		return msg;
+	}
+	
+	public String rowsString(Cell firstRow) {
+		String msg = "";
+		if(firstRow != null) {
+			msg = colsString(firstRow) + "\n";
+			msg += rowsString(firstRow.getDown());
+		}
+		
+		return msg;
+	}
+	
+	public String rowsString2(Cell firstRow) {
+		String msg = "";
+		if(firstRow != null) {
+			msg = colsString2(firstRow) + "\n";
+			msg += rowsString2(firstRow.getDown());
+		}
+		
+		return msg;
+	}
+	
+	public String toString() {
+		String msg = "";
+		msg = rowsString(first);
+		
+		return msg;
+	}
+	
+	public String toString(boolean a) {
+		String msg = "";
+		msg = rowsString2(first);
+		
 		return msg;
 	}
 
