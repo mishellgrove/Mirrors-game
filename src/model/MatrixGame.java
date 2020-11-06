@@ -160,6 +160,7 @@ public class MatrixGame {
 		setMirrorCon(mirror);
 		setMirror(mirror);
 		setContador(mirror);
+		generateMirror(a,b,mirror);
 	}
 
 	public void calculateScore() {
@@ -242,14 +243,14 @@ public class MatrixGame {
 	}
 	
 	/*
-	* The method is to shoot lightning
+	* The method is to shoot a ray
 	* @pre: first! = null;
 	* @param: Int row, char col, string orientation
 	* @return: void
-	* @post: shot lightning
+	* @post: shot ray
 	*/
 
-	public void lanzarRayo(int row, char col, String orientation) {
+	public void shootRay(int row, char col, String orientation) {
 		Cell temp = traverseMatrix(row, col,getFirst());
 		// Orientation null
 		if(contadora == 0) { // Para prevenir que estemos en el inicio sea borde
@@ -258,13 +259,13 @@ public class MatrixGame {
 					if(temp.getMirror().equals("/")) {
 						if(traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
 							contadora = contadora + 1;
-							lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
+							shootRay(temp.getRow(), (char)(temp.getCol()-1), "HI");
 							temp.setStart(true);
 						}
 					}else {
 						if(traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
 							contadora = contadora + 1;
-							lanzarRayo(temp.getRow(), (char)(temp.getCol()+1), "HD");
+							shootRay(temp.getRow(), (char)(temp.getCol()+1), "HD");
 							temp.setStart(true);
 						}
 					}
@@ -272,7 +273,7 @@ public class MatrixGame {
 					//Borde superior
 					contadora = contadora + 1;
 					if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
-						lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
+						shootRay(temp.getRow()+1, temp.getCol(), "VD");
 						temp.setStart(true);
 					}
 				}
@@ -282,13 +283,13 @@ public class MatrixGame {
 					if(temp.getMirror().equals("/")) {
 						if(traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst()) != null) {
 							contadora = contadora + 1;
-							lanzarRayo(temp.getRow(), (char)(temp.getCol()+1), "HD");
+							shootRay(temp.getRow(), (char)(temp.getCol()+1), "HD");
 							temp.setStart(true);
 						}
 					}else {
 						if(traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
 							contadora = contadora + 1;
-							lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
+							shootRay(temp.getRow(), (char)(temp.getCol()-1), "HI");
 							temp.setStart(true);
 						}
 					}
@@ -296,7 +297,7 @@ public class MatrixGame {
 					//Borde inferior
 					contadora = contadora + 1;
 					if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
-						lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
+						shootRay(temp.getRow()-1, temp.getCol(), "VU");
 						temp.setStart(true);
 					}
 				}
@@ -305,13 +306,13 @@ public class MatrixGame {
 					if(temp.getMirror().equals("/")) {
 						if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
 							contadora = contadora + 1;
-							lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
+							shootRay(temp.getRow()-1, temp.getCol(), "VU");
 							temp.setStart(true);
 						}
 					}else {
 						if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
 							contadora = contadora + 1;
-							lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
+							shootRay(temp.getRow()+1, temp.getCol(), "VD");
 							temp.setStart(true);
 						}
 					}
@@ -319,7 +320,7 @@ public class MatrixGame {
 					//Borde izquierdo
 					contadora = contadora + 1;
 					if(traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
-						lanzarRayo(temp.getRow(), (char) (temp.getCol()+1), "HD");
+						shootRay(temp.getRow(), (char) (temp.getCol()+1), "HD");
 						temp.setStart(true);
 					}
 				}
@@ -329,13 +330,13 @@ public class MatrixGame {
 					if(temp.getMirror().equals("/")) {
 						if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
 							contadora = contadora + 1;
-							lanzarRayo(temp.getRow()+1, temp.getCol(), "VD");
+							shootRay(temp.getRow()+1, temp.getCol(), "VD");
 							temp.setStart(true);
 						}
 					}else {
 						if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
 							contadora = contadora + 1;
-							lanzarRayo(temp.getRow()-1, temp.getCol(), "VU");
+							shootRay(temp.getRow()-1, temp.getCol(), "VU");
 							temp.setStart(true);
 						}
 					}
@@ -343,7 +344,7 @@ public class MatrixGame {
 					//Borde derecho
 					contadora = contadora + 1;
 					if(traverseMatrix(temp.getRow(), (char)(temp.getCol()-1), getFirst()) != null) {
-						lanzarRayo(temp.getRow(), (char)(temp.getCol()-1), "HI");
+						shootRay(temp.getRow(), (char)(temp.getCol()-1), "HI");
 						temp.setStart(true);
 					}
 				}
@@ -354,7 +355,7 @@ public class MatrixGame {
 					if(temp.getMirror().equals("/")) {
 						if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
 							Cell temp1 = traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst());
-							lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
+							shootRay(temp1.getRow(), temp1.getCol(), "VU");
 						}else {
 							temp.setStop(true);
 							setContadora(0);
@@ -363,7 +364,7 @@ public class MatrixGame {
 					}else {
 						if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
 							Cell temp1 = traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst());
-							lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
+							shootRay(temp1.getRow(), temp1.getCol(), "VD");
 						}else {
 
 							temp.setStop(true);
@@ -375,7 +376,7 @@ public class MatrixGame {
 				}else {
 					if(traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
 						Cell temp1 = traverseMatrix(temp.getRow(), (char)(temp.getCol()+1), getFirst());
-						lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
+						shootRay(temp1.getRow(), temp1.getCol(), "HD");
 					}else {
 
 						temp.setStop(true);
@@ -389,7 +390,7 @@ public class MatrixGame {
 					if(temp.getMirror().equals("/")) {
 						if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
 							Cell temp1 = traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst());
-							lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
+							shootRay(temp1.getRow(), temp1.getCol(), "VD");
 						}else {
 
 							temp.setStop(true);
@@ -400,7 +401,7 @@ public class MatrixGame {
 					}else {
 						if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
 							Cell temp1 = traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst());
-							lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
+							shootRay(temp1.getRow(), temp1.getCol(), "VU");
 						}else {
 							temp.setStop(true);
 							setContadora(0);
@@ -411,7 +412,7 @@ public class MatrixGame {
 				}else {
 					if(traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
 						Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
-						lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
+						shootRay(temp1.getRow(), temp1.getCol(), "HI");
 					}else {
 
 						temp.setStop(true);
@@ -425,7 +426,7 @@ public class MatrixGame {
 					if(temp.getMirror().equals("/")) {
 						if(traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
 							Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst());
-							lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
+							shootRay(temp1.getRow(), temp1.getCol(), "HD");
 						}else {
 
 							temp.setStop(true);
@@ -436,7 +437,7 @@ public class MatrixGame {
 					}else {
 						if(traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
 							Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
-							lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
+							shootRay(temp1.getRow(), temp1.getCol(), "HI");
 						}else {
 
 							temp.setStop(true);
@@ -448,7 +449,7 @@ public class MatrixGame {
 				}else {
 					if(traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst()) != null) {
 						Cell temp1 = traverseMatrix(temp.getRow()-1, temp.getCol(), getFirst());
-						lanzarRayo(temp1.getRow(), temp1.getCol(), "VU");
+						shootRay(temp1.getRow(), temp1.getCol(), "VU");
 					}else {
 						temp.setStop(true);
 						setContadora(0);
@@ -461,7 +462,7 @@ public class MatrixGame {
 					if(temp.getMirror().equals("/")) {
 						if(traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst()) != null) {
 							Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()-1), getFirst());
-							lanzarRayo(temp1.getRow(), temp1.getCol(), "HI");
+							shootRay(temp1.getRow(), temp1.getCol(), "HI");
 						}else {
 							temp.setStop(true);
 							setContadora(0);
@@ -471,7 +472,7 @@ public class MatrixGame {
 					}else {
 						if(traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst()) != null) {
 							Cell temp1 = traverseMatrix(temp.getRow(), (char) (temp.getCol()+1), getFirst());
-							lanzarRayo(temp1.getRow(), temp1.getCol(), "HD");
+							shootRay(temp1.getRow(), temp1.getCol(), "HD");
 						}else {
 							setContadora(0);
 							temp.setStop(true);
@@ -482,7 +483,7 @@ public class MatrixGame {
 				}else {
 					if(traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst()) != null) {
 						Cell temp1 = traverseMatrix(temp.getRow()+1, temp.getCol(), getFirst());
-						lanzarRayo(temp1.getRow(), temp1.getCol(), "VD");
+						shootRay(temp1.getRow(), temp1.getCol(), "VD");
 					}else {
 						setContadora(0);
 						temp.setStop(true);
@@ -513,7 +514,7 @@ public class MatrixGame {
 			//Esquina inferior derecha4
 
 		}else {
-			return "No se identifica la esquina";
+			return "Corner not identified";
 		}
 
 	}
@@ -555,10 +556,10 @@ public class MatrixGame {
 				}else if(incli.equals("L")) {
 					showMirror(temp1, "\\");
 				}else {
-					msg = "No se reconoce si es R o L en el comando";
+					msg = "It is not recognized if it is R or L in the command";
 				}
 			}else {
-				msg = "La position de la celda no existe";
+				msg = "Cell position does not exist";
 			}
 		}else if(comms.length() == 3){ //1AH
 			char col = comms.charAt(1);
@@ -573,22 +574,22 @@ public class MatrixGame {
 					if(identificarEsquina(temp).equals("SI")) {
 						temp.setStart(true);
 						contadora = contadora + 1;
-						lanzarRayo(row,col, "HD");
+						shootRay(row,col, "HD");
 						disparos = disparos +1;
 					}else if(identificarEsquina(temp).equals("SD")){
 						temp.setStart(true);
 						contadora = contadora + 1;
-						lanzarRayo(row,col, "HI");
+						shootRay(row,col, "HI");
 						disparos = disparos +1;
 					}else if(identificarEsquina(temp).equals("II")) {
 						temp.setStart(true);
 						contadora = contadora + 1;
-						lanzarRayo(row,col, "HD");
+						shootRay(row,col, "HD");
 						disparos = disparos +1;
 					}else if(identificarEsquina(temp).equals("ID")) {
 						temp.setStart(true);
 						contadora = contadora + 1;
-						lanzarRayo(row,col, "HI");
+						shootRay(row,col, "HI");
 						disparos = disparos +1;
 					}
 				}else if((comms.charAt(comms.length()-1) == 'V')){
@@ -596,28 +597,28 @@ public class MatrixGame {
 					if(identificarEsquina(temp).equals("SI")) {
 						temp.setStart(true);
 						contadora = contadora + 1;
-						lanzarRayo(row,col, "VD");
+						shootRay(row,col, "VD");
 						disparos = disparos +1;
 					}else if(identificarEsquina(temp).equals("SD")){
 						temp.setStart(true);
 						contadora = contadora + 1;
-						lanzarRayo(row,col, "VD");
+						shootRay(row,col, "VD");
 						disparos = disparos +1;
 					}else if(identificarEsquina(temp).equals("II")) {
 						temp.setStart(true);
 						contadora = contadora + 1;
-						lanzarRayo(row,col, "VU");
+						shootRay(row,col, "VU");
 						disparos = disparos +1;
 					}else if(identificarEsquina(temp).equals("ID"))
 						temp.setStart(true);
 					contadora = contadora + 1;
-					lanzarRayo(row,col, "VU");
+					shootRay(row,col, "VU");
 					disparos = disparos +1;
 				}else {
-					msg = "No se reconoce si es H o V en el comando";
+					msg = "It is not recognized if it is H or V in the command";
 				}
 			}else {
-				msg = "La position de la celda no existe";
+				msg = "Cell position does not exist";
 			}
 		}else {
 			String a = comms.charAt(0) + "";
@@ -632,7 +633,7 @@ public class MatrixGame {
 				if(identificarEsquina1(temp) == true){
 					toString();
 				}else {
-					lanzarRayo(b,c, "");
+					shootRay(b,c, "");
 				}
 
 			}
@@ -678,6 +679,13 @@ public class MatrixGame {
 			msg = colsString2(firstRow) + "\n";
 			msg += rowsString2(firstRow.getDown());
 		}
+		
+		return msg;
+	}
+	
+	public String showAll() {
+		String msg = "";
+		msg = rowsString2(first);
 		
 		return msg;
 	}
